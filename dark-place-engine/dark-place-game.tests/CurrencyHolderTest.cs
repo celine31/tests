@@ -11,6 +11,7 @@ namespace dark_place_game.tests
         public static readonly int EXEMPLE_CONTENANCE_INITIALE_VALIDE = 978;
         public static readonly string EXEMPLE_NOM_MONNAIE_VALIDE = "Brouzouf";
 
+        
         [Fact]
         public void VraiShouldBeTrue()
         {

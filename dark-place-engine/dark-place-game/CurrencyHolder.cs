@@ -45,6 +45,15 @@ namespace dark_place_game
             Capacity = capacity;
             CurrencyName = name;
             CurrentAmount = amount;
+        if(amount<0){
+            throw new System.ArgumentException("pas de negatif");
+        }
+        if(name==null){
+            throw new System.ArgumentException("pas de valeur null");
+        }
+        if(name==""){
+            throw new System.ArgumentException("pas de chaine vide");
+        }
         }
 
         public bool IsEmpty() {
