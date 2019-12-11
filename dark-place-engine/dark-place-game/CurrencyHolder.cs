@@ -58,6 +58,9 @@ namespace dark_place_game
         if(name.Length<4){
             throw new System.ArgumentException("pas de chaine inférieur à 4 caractères");
         }
+        if(name.Length>10){
+            throw new System.ArgumentException("pas de chaine supérieur a 10 caractères");
+        }
         if(amount>capacity){
             throw new System.ArgumentException("le panier est plein");
         }
@@ -72,15 +75,26 @@ namespace dark_place_game
         }
 
         public void Store(int amount) {
-            if(capacity<currentAmount+10){
+            if(capacity<(currentAmount+10)){
              currentAmount+=amount; 
              }
             throw new System.ArgumentException("le panier est plein");       
         }
 
         public void Withdraw(int amount) {
-
+            var amountCurrent = this.CurrentAmount - amount;
+            if (amount <0 ){
+                throw new dark_place_game.CantWithDrawMoreThanCurrentAmountExeption();
+            }
+            this.currentAmount -= amount;
         }
     }
-    public class CantWithDrawMoreThanCurrentAmountExeption : System.Exception {}
+    public class CantWithDrawMoreThanCurrentAmountExeption : System.Exception {
+        public CantWithDrawMoreThanCurrentAmountExeption()
+        :base ("message de mon exception") {}
+
+        public CantWithDrawMoreThanCurrentAmountExeption(string message)
+        :base(message) {}
+        
+    }
 }

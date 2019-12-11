@@ -90,26 +90,26 @@ namespace dark_place_game.tests
        
         }
 
-        [Fact]
-        public void TestStoreCurrencyInNonFullCurrencyHolder()
+       [Fact]
+        public void TestPut10CurrencyInNonFullCurrencyHolder()
         {
             // A vous d'écrire un test qui vérifie que si on ajoute via la methode put 10 currency à un sac a moité plein, il contient maintenant la bonne quantité de currency
-            var ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE,EXEMPLE_CAPACITE_VALIDE, 450);
+            var ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, EXEMPLE_CAPACITE_VALIDE, 480);
             ch.Store(10);
-            Assert.True(ch.CurrentAmount==460);
+            Assert.True(ch.CurrentAmount == 490);
         }
 
         [Fact]
-        public void TestStoreCurrencyInNearlyFullCurrencyHolder()
+        public void TestPut10CurrencyInNearlyFullCurrencyHolder()
         {
             // A vous d'écrire un test qui vérifie que si on ajoute via la methode put 10 currency à un sac quasiement plein, une exeption NotEnoughtSpaceInCurrencyHolderExeption est levée.
-            Action mauvaisAppel = () => {
-                var ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE,500,490);
-               ch.Store(20);
-            };                  
-              Assert.Throws<NotEnoughtSpaceInCurrencyHolderExeption>(mauvaisAppel);      
-        } 
-
+            Action mauvaisAppel = () =>
+            {
+                var ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, 500, 490);
+                ch.Store(20);
+            };
+            Assert.Throws<ArgumentException>(mauvaisAppel);
+        }
         
         [Fact]
         public void CreatingCurrencyHolderWithNameShorterThan4CharacterThrowExeption()
@@ -118,14 +118,31 @@ namespace dark_place_game.tests
           Action mauvaisAppel = () => new CurrencyHolder("Bro",EXEMPLE_CAPACITE_VALIDE , EXEMPLE_CONTENANCE_INITIALE_VALIDE);
          Assert.Throws<ArgumentException>(mauvaisAppel);
         }
+        
+        // nom supperieur a 10 avec exemple de 12
+         [Fact]
+        public void CreatingCurrencyHolderWithNameBiggerThan10CharacterThrowExeption()
+        {
+            // A vous d'écrire un test qui doit échouer s'il es possible de créer un CurrencyHolder dont Le Nom De monnaie est inférieur a 4 lettres
+          Action mauvaisAppel = () => new CurrencyHolder("Brouzoufffff",EXEMPLE_CAPACITE_VALIDE , EXEMPLE_CONTENANCE_INITIALE_VALIDE);
+         Assert.Throws<ArgumentException>(mauvaisAppel);
+        }
 
         [Fact]
         public void WithdrawMoreThanCurrentAmountInCurrencyHolderThrowExeption()
         {
             // A vous d'écrire un test qui vérifie que retirer (methode withdraw) une quantité negative de currency leve une exeption CantWithDrawNegativeCurrencyAmountExeption.
             // Asruce : dans ce cas prévu avant même de pouvoir compiler le test, vous allez être obligé de créer la classe CantWithDrawMoreThanCurrentAmountExeption (vous pouvez la mettre dans le meme fichier que CurrencyHolder)
+            Action mauvaisAppel = () =>
+            {
+                var ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE, 250, 200);
+                ch.Withdraw(-60);
+            };
+            Assert.Throws<dark_place_game.CantWithDrawMoreThanCurrentAmountExeption>(mauvaisAppel);
         }
+    
+        
+    }
        
 
     }
-}
