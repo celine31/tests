@@ -27,6 +27,16 @@ namespace dark_place_game.tests
             Assert.True(result);
         }
 
+        //methode ne pas ajouter 0
+         [Fact]
+        public void CurrencyHolderCreatedWithInitialCurrentAmountOf0ShouldContain10Currency()
+        {
+            var ch = new CurrencyHolder(EXEMPLE_NOM_MONNAIE_VALIDE,EXEMPLE_CAPACITE_VALIDE , 10);
+            var result = ch.CurrentAmount == 10;
+            Assert.True(result);
+        }
+
+
         [Fact]
         public void CurrencyHolderCreatedWithInitialCurrentAmountOf25ShouldContain25Currency()
         {

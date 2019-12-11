@@ -64,19 +64,29 @@ namespace dark_place_game
         if(amount>capacity){
             throw new System.ArgumentException("le panier est plein");
         }
+        
         }
 
         public bool IsEmpty() {
-            return true;
+            if(capacity==0){
+                return true;
+            }
+            return false;
         }
 
         public bool IsFull() {
+            if(capacity>currentAmount){
             return true;
+            }
+            return false;
         }
 
         public void Store(int amount) {
             if(capacity<(currentAmount+10)){
              currentAmount+=amount; 
+             }
+             if(amount==0){
+             throw new System.ArgumentException("on ne peut ajouter 0");
              }
             throw new System.ArgumentException("le panier est plein");       
         }
