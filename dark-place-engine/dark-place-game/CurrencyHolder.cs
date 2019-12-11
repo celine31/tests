@@ -15,8 +15,8 @@ namespace dark_place_game
         public string CurrencyName {
             get {return currencyName;}
             private set {
-                currencyName = value;
-            }
+               currencyName = value;
+               }
         }
         // Le champs interne de la property
         private string currencyName = CURRENCY_DEFAULT_NAME;
@@ -28,6 +28,7 @@ namespace dark_place_game
                 currentAmount = value;
             }
         }
+        
         // Le champs interne de la property
         private int currentAmount = 0;
 
@@ -54,6 +55,12 @@ namespace dark_place_game
         if(name==""){
             throw new System.ArgumentException("pas de chaine vide");
         }
+        if(name.Length<4){
+            throw new System.ArgumentException("pas de chaine inférieur à 4 caractères");
+        }
+        if(amount>capacity){
+            throw new System.ArgumentException("le panier est plein");
+        }
         }
 
         public bool IsEmpty() {
@@ -65,11 +72,15 @@ namespace dark_place_game
         }
 
         public void Store(int amount) {
-            
+            if(capacity<currentAmount+10){
+             currentAmount+=amount; 
+             }
+            throw new System.ArgumentException("le panier est plein");       
         }
 
         public void Withdraw(int amount) {
 
         }
     }
+    public class CantWithDrawMoreThanCurrentAmountExeption : System.Exception {}
 }
